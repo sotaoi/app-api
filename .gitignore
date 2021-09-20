@@ -1,0 +1,22 @@
+!.gitkeep
+
+# certs
+/certs/*
+!/certs/.gitkeep
+
+# env
+/.env
+
+# app
+/.greenlockrc
+/node_modules
+/var/greenlock.d
+
+# logs
+/logs/*
+!/logs/.gitkeep
+
+
+# ide
+/.idea
+/.vscode

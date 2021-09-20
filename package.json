@@ -1,0 +1,46 @@
+{
+  "name": "@app/api",
+  "private": true,
+  "version": "0.9.1",
+  "description": "",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "postinstall": "ts-node ./scripts/hooks/posthook",
+    "start:api": "concurrently --kill-others \"npm run run:api\" \"npm run start:proxy\"",
+    "start:proxy": "NODE_ENV=development PORT=443 nodemon --config ./cfg-nodemon-proxy.json",
+    "db:migrate": "ts-node ./scripts/db-migrate",
+    "db:rollback": "ts-node ./scripts/db-rollback",
+    "db:migrate:down": "ts-node ./scripts/db-migrate-down",
+    "db:seed": "ts-node ./scripts/db-seed",
+    "run:api": "NODE_ENV=development PORT=3000 nodemon --config ./cfg-nodemon-api.json",
+    "ssl:greenlock": "ts-node ./scripts/ssl-greenlock",
+    "start:api:prod": "concurrently --kill-others \"npm run run:api:prod\" \"npm run start:proxy:prod\"",
+    "start:proxy:prod": "NODE_ENV=production node ./app-api/proxy.entry.js",
+    "run:api:prod": "NODE_ENV=production PORT=3000 node ./app-api/api.entry.js",
+    "ssl:greenlock:prod": "ts-node ./scripts/ssl-greenlock"
+  },
+  "devDependencies": {
+    "@app/api": "file:./",
+    "@types/hapi__hapi": "^19.0.3",
+    "@types/node": "^14",
+    "@types/node-fetch": "^2.5.10",
+    "@types/shelljs": "^0.8.8",
+    "@types/yargs": "^17.0.0"
+  },
+  "dependencies": {
+    "@sotaoi/api": "file:../packages/sotaoi-api",
+    "@sotaoi/omni": "file:../packages/sotaoi-omni",
+    "concurrently": "^6.2.0",
+    "dotenv": "^8.2.0",
+    "greenlock": "^4.0.4",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.4",
+    "shelljs": "^0.8.4",
+    "tree-kill": "^1.2.2",
+    "ts-node": "^8.10.2",
+    "typescript": "4.1.5",
+    "yargs": "^16.1.1"
+  }
+}
