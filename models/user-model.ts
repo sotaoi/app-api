@@ -19,16 +19,13 @@ class UserModel extends Model {
       email: {
         type: String,
       },
+      name: {
+        type: String,
+      },
       password: {
         type: String,
       },
-      flavor: {
-        type: String,
-      },
       avatar: {
-        type: String,
-      },
-      asd: {
         type: String,
       },
       gallery: {

@@ -12,7 +12,7 @@ class UpdateUserHandler extends UpdateHandler {
   }
 
   public async handle(command: UpdateCommand): Promise<CommandResult> {
-    const { email, avatar } = command.payload;
+    const { email, name, avatar } = command.payload;
 
     const [saveAvatar, avatarAsset, removeAvatar] = storage('main').handle(
       {
@@ -24,6 +24,7 @@ class UpdateUserHandler extends UpdateHandler {
 
     const payload: { [key: string]: any } = {};
     typeof email !== 'undefined' && (payload.email = email.serialize(true));
+    typeof name !== 'undefined' && (payload.name = name ? name.serialize(true) : '');
     typeof avatar !== 'undefined' && (payload.avatar = avatarAsset?.serialize(true));
 
     Object.keys(payload).length && (await new UserModel().mdb().where('uuid', command.uuid).update(payload));

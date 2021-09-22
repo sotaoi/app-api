@@ -26,7 +26,7 @@ class RegisterUserHandler extends StoreHandler {
       uuid: userUuid,
       email: email.serialize(true),
       password: Helper.sha1(password.serialize(true)),
-      name: name.serialize(true),
+      name: name ? name.serialize(true) : '',
       avatar: avatarAsset.serialize(true),
     });
     saveAvatar();
