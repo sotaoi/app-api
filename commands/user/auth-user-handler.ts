@@ -21,7 +21,7 @@ class AuthUserHandler extends AuthHandler {
       .where('password', Helper.sha1(command.payload.password.serialize(true)))
       .first();
     if (!user) {
-      return new AuthResult(401, 'Error', 'Invalid credentials', null, null, null);
+      return new AuthResult(401, 'Error', 'Invalid credentials', null, null, null, {});
     }
 
     const accessToken = Helper.uuid();
@@ -47,10 +47,11 @@ class AuthUserHandler extends AuthHandler {
         authRecord,
         accessToken,
         null,
+        {},
       );
     }
 
-    return new AuthResult(200, 'Success', 'Authentication success', authRecord, accessToken, null);
+    return new AuthResult(200, 'Success', 'Authentication success', authRecord, accessToken, null, {});
   }
 }
 

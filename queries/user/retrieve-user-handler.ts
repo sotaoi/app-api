@@ -13,7 +13,7 @@ class RetrieveUserHandler extends RetrieveHandler {
   public async handle(retrieve: Retrieve): Promise<RetrieveResult> {
     try {
       if (!(await this.requireArtifact(retrieve.authRecord).ofType('user'))) {
-        return new RetrieveResult(401, 'Unauthorized', 'No authorization to run query', null, null);
+        return new RetrieveResult(401, 'Unauthorized', 'No authorization to run query', null, null, {});
       }
 
       const user = await new UserModel().mdb().where('uuid', retrieve.uuid).first();
@@ -30,6 +30,7 @@ class RetrieveUserHandler extends RetrieveHandler {
         'Retrieve was successful',
         await this.transform(user, retrieve.variant),
         null,
+        {},
       );
 
       return result;
@@ -41,6 +42,7 @@ class RetrieveUserHandler extends RetrieveHandler {
         err && err.message ? err.message : 'Retrieve failed',
         null,
         null,
+        {},
       );
     }
   }

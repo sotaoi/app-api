@@ -46,10 +46,10 @@ class RegisterUserHandler extends StoreHandler {
         tokenTtl,
       ))
     ) {
-      return new CommandResult(400, 'Error', 'User registered, but authentication failed', null, null);
+      return new CommandResult(400, 'Error', 'User registered, but authentication failed', null, null, {});
     }
 
-    return new CommandResult(200, 'Hello', 'You are authenticated', authRecord, null);
+    return new CommandResult(200, 'Hello', 'You are authenticated', authRecord, null, {});
   }
 }
 

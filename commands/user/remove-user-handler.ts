@@ -18,6 +18,7 @@ class RemoveUserHandler extends RemoveHandler {
       'Removal succeeded',
       this.mdriverArtifact('user', command.uuid, {}),
       null,
+      {},
     );
   }
 }
