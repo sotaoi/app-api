@@ -19,5 +19,5 @@
       "@sotaoi/omni/*": ["../packages/sotaoi-omni/*"]
     }
   },
-  "exclude": ["./node_modules", "./var"]
+  "exclude": ["./node_modules"]
 }
