@@ -1,4 +1,4 @@
-import { DatabaseConnection } from '@sotaoi/api/db/mdriver';
+import { DatabaseConnection } from '@sotaoi/omni/definitions/mdriver';
 import { migrateOauthTables, rollbackOauthTables } from '@sotaoi/api/db/oauth-tables';
 
 const up = async (dbConnection: DatabaseConnection): Promise<any> => {

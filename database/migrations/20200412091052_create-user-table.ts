@@ -1,4 +1,4 @@
-import { DatabaseConnection } from '@sotaoi/api/db/mdriver';
+import { DatabaseConnection } from '@sotaoi/omni/definitions/mdriver';
 
 const repository = 'user';
 
