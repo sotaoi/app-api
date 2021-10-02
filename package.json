@@ -8,19 +8,19 @@
   },
   "scripts": {
     "bootstrap": "npm install --no-audit --no-fund",
-    "postinstall": "ts-node ./scripts/hooks/posthook",
-    "start:api": "concurrently --kill-others \"npm run run:api\" \"npm run start:proxy\"",
-    "start:proxy": "NODE_ENV=development PORT=443 nodemon --config ./cfg-nodemon-proxy.json",
+    "start:api": "concurrently --kill-others \"npm run run:api\" \"npm run run:proxy\"",
+    "start:api:prod": "concurrently --kill-others \"npm run run:api:prod\" \"npm run run:proxy:prod\"",
+    "run:api": "NODE_ENV=development PORT=3000 nodemon --config ./cfg-nodemon-api.json",
+    "run:api:prod": "NODE_ENV=production PORT=3000 node ./app-api/api.entry.js",
+    "run:proxy": "NODE_ENV=development PORT=443 nodemon --config ./cfg-nodemon-proxy.json",
+    "run:proxy:prod": "NODE_ENV=production node ./app-api/proxy.entry.js",
     "db:migrate": "ts-node ./scripts/db-migrate",
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",
     "db:seed": "ts-node ./scripts/db-seed",
-    "run:api": "NODE_ENV=development PORT=3000 nodemon --config ./cfg-nodemon-api.json",
-    "ssl:greenlock": "ts-node ./scripts/ssl-greenlock",
-    "start:api:prod": "concurrently --kill-others \"npm run run:api:prod\" \"npm run start:proxy:prod\"",
-    "start:proxy:prod": "NODE_ENV=production node ./app-api/proxy.entry.js",
-    "run:api:prod": "NODE_ENV=production PORT=3000 node ./app-api/api.entry.js",
-    "ssl:greenlock:prod": "ts-node ./scripts/ssl-greenlock"
+    "ssl:greenloc": "ts-node ./scripts/ssl-greenlock",
+    "ssl:greenlock:prod": "ts-node ./scripts/ssl-greenlock",
+    "postinstall": "ts-node ./scripts/hooks/posthook"
   },
   "devDependencies": {
     "@app/api": "file:./",
