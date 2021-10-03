@@ -18,7 +18,7 @@
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",
     "db:seed": "ts-node ./scripts/db-seed",
-    "ssl:greenloc": "ts-node ./scripts/ssl-greenlock",
+    "ssl:greenlock": "ts-node ./scripts/ssl-greenlock",
     "ssl:greenlock:prod": "ts-node ./scripts/ssl-greenlock",
     "postinstall": "ts-node ./scripts/hooks/posthook"
   },
