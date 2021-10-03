@@ -13,7 +13,7 @@
     "run:api": "NODE_ENV=development PORT=3000 nodemon --config ./cfg-nodemon-api.json",
     "run:api:prod": "NODE_ENV=production PORT=3000 nodemon --config ./cfg-nodemon-api.json",
     "run:proxy": "NODE_ENV=development PORT=443 nodemon --config ./cfg-nodemon-proxy.json",
-    "run:proxy:prod": "NODE_ENV=production node ./app-api/proxy.entry",
+    "run:proxy:prod": "NODE_ENV=production PORT=443 nodemon --config ./cfg-nodemon-proxy.json",
     "db:migrate": "ts-node ./scripts/db-migrate",
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",
