@@ -9,7 +9,9 @@
   "scripts": {
     "bootstrap": "npm install --no-audit --no-fund",
     "start:api": "NODE_ENV=development PORT=3000 nodemon --config ./cfg-nodemon-api.json",
-    "start:api:prod": "NODE_ENV=production PORT=3000 nodemon --config ./cfg-nodemon-api.json",
+    "start:api:prod": "NODE_ENV=production PORT=3000 forever start -v -c ts-node api.entry.ts",
+    "restart:api:prod": "forever restart api.entry.ts",
+    "stop:api:prod": "forever stop api.entry.ts",
     "db:migrate": "ts-node ./scripts/db-migrate",
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",
@@ -31,6 +33,7 @@
     "@sotaoi/api": "^0.9.1",
     "@sotaoi/omni": "^0.9.1",
     "dotenv": "^8.2.0",
+    "forever": "^4.0.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
