@@ -4,6 +4,7 @@ import { Retrieve } from '@sotaoi/omni/transactions';
 import { UserModel } from '@app/api/models/user-model';
 import { logger } from '@sotaoi/api/logger';
 import { NotFoundError } from '@app/api/errors/errors';
+import { ErrorCode } from '@sotaoi/omni/errors';
 
 class RetrieveUserHandler extends RetrieveHandler {
   public async model(): Promise<UserModel> {
@@ -13,7 +14,15 @@ class RetrieveUserHandler extends RetrieveHandler {
   public async handle(retrieve: Retrieve): Promise<RetrieveResult> {
     try {
       if (!(await this.requireArtifact(retrieve.authRecord).ofType('user'))) {
-        return new RetrieveResult(401, 'Unauthorized', 'No authorization to run query', null, null, {});
+        return new RetrieveResult(
+          401,
+          ErrorCode.APP_GENERIC_ERROR,
+          'Unauthorized',
+          'No authorization to run query',
+          null,
+          null,
+          {},
+        );
       }
 
       const user = await new UserModel().mdb().where('uuid', retrieve.uuid).first();
@@ -26,6 +35,7 @@ class RetrieveUserHandler extends RetrieveHandler {
 
       const result = new RetrieveResult(
         200,
+        null,
         'Retrieve success',
         'Retrieve was successful',
         await this.transform(user, retrieve.variant),
@@ -38,6 +48,7 @@ class RetrieveUserHandler extends RetrieveHandler {
       logger().estack(err);
       return new RetrieveResult(
         err && err.code ? err.code : 400,
+        ErrorCode.APP_GENERIC_ERROR,
         err && err.name ? err.name : 'Error',
         err && err.message ? err.message : 'Retrieve failed',
         null,

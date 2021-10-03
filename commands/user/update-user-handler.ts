@@ -30,7 +30,15 @@ class UpdateUserHandler extends UpdateHandler {
     Object.keys(payload).length && (await new UserModel().mdb().where('uuid', command.uuid).update(payload));
     typeof avatar !== 'undefined' && (avatar ? saveAvatar() : removeAvatar());
 
-    return new CommandResult(200, 'Hello', 'Command test', this.mdriverArtifact('user', command.uuid, {}), null, {});
+    return new CommandResult(
+      200,
+      null,
+      'Hello',
+      'Command test',
+      this.mdriverArtifact('user', command.uuid, {}),
+      null,
+      {},
+    );
   }
 
   protected refreshArtifact(): boolean {

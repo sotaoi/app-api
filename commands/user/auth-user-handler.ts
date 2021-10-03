@@ -4,8 +4,7 @@ import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { Helper } from '@sotaoi/api/helper';
 import { UserModel } from '@app/api/models/user-model';
 import { storeAuthorization } from '@app/api/auth/oauth-authorize';
-
-// todo mediumprio: generate token
+import { ErrorCode } from '@sotaoi/omni/errors';
 
 class AuthUserHandler extends AuthHandler {
   public getFormId = async (): Promise<string> => 'auth-user-form';
@@ -21,11 +20,11 @@ class AuthUserHandler extends AuthHandler {
       .where('password', Helper.sha1(command.payload.password.serialize(true)))
       .first();
     if (!user) {
-      return new AuthResult(401, 'Error', 'Invalid credentials', null, null, null, {});
+      return new AuthResult(401, ErrorCode.APP_GENERIC_ERROR, 'Error', 'Invalid credentials', null, null, null, {});
     }
 
     const accessToken = Helper.uuid();
-    // better token encryption needed here
+    // todo lowprio: better token encryption needed here
     const authRecord = this.mdriverAuthRecord('user', user.uuid, user.createdAt, true, {});
     const rememberMe = command.payload.rememberMe.serialize(true);
     const tokenTtl = rememberMe ? AuthHandler.getTokenTtlInSeconds() : AuthHandler.getShortTokenTtlInSeconds();
@@ -42,6 +41,7 @@ class AuthUserHandler extends AuthHandler {
     ) {
       return new AuthResult(
         400,
+        ErrorCode.APP_GENERIC_ERROR,
         'Error',
         'Credentials look good, but authorization server failed',
         authRecord,
@@ -51,7 +51,7 @@ class AuthUserHandler extends AuthHandler {
       );
     }
 
-    return new AuthResult(200, 'Success', 'Authentication success', authRecord, accessToken, null, {});
+    return new AuthResult(200, null, 'Success', 'Authentication success', authRecord, accessToken, null, {});
   }
 }
 

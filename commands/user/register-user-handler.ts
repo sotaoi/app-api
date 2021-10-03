@@ -6,6 +6,7 @@ import { storage } from '@sotaoi/api/storage';
 import { UserModel } from '@app/api/models/user-model';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { storeAuthorization } from '@app/api/auth/oauth-authorize';
+import { ErrorCode } from '@sotaoi/omni/errors';
 
 class RegisterUserHandler extends StoreHandler {
   public getFormId = async (): Promise<string> => 'user-register-form';
@@ -46,10 +47,18 @@ class RegisterUserHandler extends StoreHandler {
         tokenTtl,
       ))
     ) {
-      return new CommandResult(400, 'Error', 'User registered, but authentication failed', null, null, {});
+      return new CommandResult(
+        400,
+        ErrorCode.APP_GENERIC_ERROR,
+        'Error',
+        'User registered, but authentication failed',
+        null,
+        null,
+        {},
+      );
     }
 
-    return new CommandResult(200, 'Hello', 'You are authenticated', authRecord, null, {});
+    return new CommandResult(200, null, 'Hello', 'You are authenticated', authRecord, null, {});
   }
 }
 

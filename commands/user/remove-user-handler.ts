@@ -14,6 +14,7 @@ class RemoveUserHandler extends RemoveHandler {
 
     return new CommandResult(
       200,
+      null,
       'Removal success',
       'Removal succeeded',
       this.mdriverArtifact('user', command.uuid, {}),

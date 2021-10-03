@@ -15,6 +15,7 @@
     "noEmitOnError": true,
     "paths": {
       "@app/api/*": ["./*"],
+      "@app/omni/*": ["../app-omni/*"],
       "@sotaoi/api/*": ["../packages/sotaoi-api/*"],
       "@sotaoi/omni/*": ["../packages/sotaoi-omni/*"]
     }

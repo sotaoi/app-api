@@ -4,7 +4,7 @@ import path from 'path';
 import { Store } from '@sotaoi/api/store';
 import { Server } from '@sotaoi/api/server';
 import { handlers } from '@app/api/handlers';
-import { user } from '@sotaoi/omni/forms/user-forms';
+import { user } from '@app/omni/forms/user-forms';
 import { ApiInit } from '@app/api/api-init';
 import { UserModel } from '@app/api/models/user-model';
 import { connect, mconnect, sconnect } from '@sotaoi/api/db';

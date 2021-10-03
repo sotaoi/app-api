@@ -12,7 +12,6 @@ class UserModel extends Model {
       uuid: {
         type: String,
         index: {
-          // todo highprio: create unique index
           unique: true,
         },
       },
@@ -48,7 +47,6 @@ class UserModel extends Model {
   }
 
   public async view(user: RecordEntry): Promise<RecordEntry> {
-    // todo mediumprio: promise all resolve here (await promise resolve all?)
     await this.with(user, 'address:view');
     return user;
   }
