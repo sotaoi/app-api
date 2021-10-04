@@ -15,8 +15,7 @@
     "db:migrate": "ts-node ./scripts/db-migrate",
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",
-    "db:seed": "ts-node ./scripts/db-seed",
-    "postinstall": "ts-node ./scripts/hooks/posthook"
+    "db:seed": "ts-node ./scripts/db-seed"
   },
   "devDependencies": {
     "@app/api": "file:./",
@@ -31,7 +30,6 @@
     "@hapi/hapi": "19.1.1",
     "@sotaoi/api": "^0.9.1",
     "@sotaoi/omni": "^0.9.1",
-    "dotenv": "^8.2.0",
     "forever": "^4.0.1",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",

@@ -2,7 +2,7 @@ import { UserModel } from '@app/api/models/user-model';
 import { Model } from '@sotaoi/api/db/model';
 import { Helper } from '@sotaoi/api/helper';
 import { seedOauthTables } from '@sotaoi/api/db/oauth-tables';
-import { config } from '@sotaoi/api/config';
+import { config } from '@app/omni/config';
 
 const seed = async (): Promise<any> => {
   const user = new UserModel().mdb();

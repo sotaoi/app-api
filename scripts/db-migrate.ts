@@ -2,7 +2,7 @@ import { main as apiMain } from '@app/api/main';
 import { migrate } from '@sotaoi/api/db';
 import { logger } from '@sotaoi/api/logger';
 import { cpanelMigrate } from '@sotaoi/api/db/cpanel-tables';
-import { Store } from '@sotaoi/api/store';
+import { getAppInfo } from '@sotaoi/omni/get-app-info';
 
 const main = async (): Promise<void> => {
   try {
@@ -13,7 +13,7 @@ const main = async (): Promise<void> => {
     logger().info(`\n\nMigrate command complete:\n${migrations.join('\n')}\n`);
 
     logger().info(`Running control panel migrations...\n`);
-    await cpanelMigrate(Store.getAppInfo().isMasterBundle === 'yes');
+    await cpanelMigrate(getAppInfo().isMasterBundle === 'yes');
 
     process.exit(0);
   } catch (err) {

@@ -14,7 +14,7 @@ const Greenlock = require('greenlock');
 let _checkCertificatesInterval: any = null;
 
 const servers: (https.Server | HttpServer)[] = [];
-const appInfo = getAppInfo(require('dotenv'));
+const appInfo = getAppInfo();
 
 const getTimestamp = Helper.getTimestamp;
 const shutDown = Helper.shutDown;
@@ -51,11 +51,11 @@ const bundlePath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/bundle.pe
 const chainPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/chain.pem`);
 const fullchainPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/fullchain.pem`);
 
-const newKeyPath = path.resolve(process.env.SSL_KEY || '');
-const newCertPath = path.resolve(process.env.SSL_CERT || '');
-const newbundlePath = path.resolve(process.env.SSL_CA || '');
-const newChainPath = path.resolve(process.env.SSL_CHAIN || '');
-const newFullchainPath = path.resolve(process.env.SSL_FCHAIN || '');
+const newKeyPath = path.resolve(appInfo.sslKey);
+const newCertPath = path.resolve(appInfo.sslCert);
+const newBundlePath = path.resolve(appInfo.sslCa);
+const newChainPath = path.resolve(appInfo.sslChain);
+const newFullchainPath = path.resolve(appInfo.sslFullchain);
 
 const checkCertificatesInterval = (): void => {
   let intervalCount = 0;
@@ -75,7 +75,7 @@ const checkCertificatesInterval = (): void => {
 
       fs.copyFileSync(keyPath, newKeyPath);
       fs.copyFileSync(certPath, newCertPath);
-      fs.copyFileSync(bundlePath, newbundlePath);
+      fs.copyFileSync(bundlePath, newBundlePath);
       fs.copyFileSync(chainPath, newChainPath);
       fs.copyFileSync(fullchainPath, newFullchainPath);
 
@@ -88,8 +88,10 @@ const checkCertificatesInterval = (): void => {
 
 const main = async (): Promise<void> => {
   // clean and backup ../packages/sotaoi-omni/certs/*.pem
-  const sslDirectory = path.resolve(process.env.SSL_DIRECTORY || '../packages/sotaoi-omni/certs');
-  const sslBackupDirectory = path.resolve(process.env.SSL_DIRECTORY || '../packages/sotaoi-omni/certs', 'backup');
+  // const sslDirectory = path.resolve(process.env.SSL_DIRECTORY || '../packages/sotaoi-omni/certs');
+  // const sslBackupDirectory = path.resolve(process.env.SSL_DIRECTORY || '../packages/sotaoi-omni/certs', 'backup');
+  const sslDirectory = path.resolve('../packages/sotaoi-omni/certs');
+  const sslBackupDirectory = path.resolve('../packages/sotaoi-omni/certs', 'backup');
   !fs.existsSync(path.resolve(sslBackupDirectory)) && fs.mkdirSync(path.resolve(sslBackupDirectory));
   fs.existsSync(path.resolve(sslDirectory, 'bundle.pem')) &&
     fs.renameSync(path.resolve(sslDirectory, 'bundle.pem'), path.resolve(sslBackupDirectory, 'bundle.pem'));

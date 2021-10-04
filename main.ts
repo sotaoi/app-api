@@ -1,4 +1,3 @@
-require('dotenv').config();
 import fs from 'fs';
 import path from 'path';
 import { Store } from '@sotaoi/api/store';
@@ -15,6 +14,7 @@ import { Server as HttpServer } from 'http';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { getAppInfo } from '@sotaoi/omni/get-app-info';
 import { scopedRequests } from '@sotaoi/api/auth/oauth-authorize';
+import { config } from '@app/omni/config';
 
 let serverInitInterval: any = null;
 let serverInitTries = 0;
@@ -41,9 +41,11 @@ process.on('SIGUSR1', exitHandler.bind(null, { code: 0 }));
 const main = async (noServer: boolean): Promise<void> => {
   clearTimeout(serverInitInterval);
 
-  const keyPath = path.resolve(process.env.SSL_KEY || '');
-  const certPath = path.resolve(process.env.SSL_CERT || '');
-  const chainPath = path.resolve(process.env.SSL_CA || '');
+  const appInfo = getAppInfo();
+
+  const keyPath = path.resolve(appInfo.sslKey);
+  const certPath = path.resolve(appInfo.sslCert);
+  const chainPath = path.resolve(appInfo.sslCa);
   if (!noServer && (!fs.existsSync(keyPath) || !fs.existsSync(certPath) || !fs.existsSync(chainPath))) {
     if (serverInitTries === 60) {
       console.error('server failed to start because at least one ssl certificate file is missing');
@@ -74,15 +76,12 @@ const main = async (noServer: boolean): Promise<void> => {
   await mconnect();
   await sconnect();
 
-  appKernel.bootstrap();
+  appKernel.bootstrap(config);
 
   AuthHandler.setTranslateAccessToken(ApiInit.translateAccessToken);
   AuthHandler.setDeauth(ApiInit.deauth);
 
-  const appInfo = getAppInfo(require('dotenv'));
   await Store.init(appInfo, handlers, { user }, scopedRequests());
-
-  console.log(appInfo.environment);
 
   // start
   const server = await Server.init(noServer);

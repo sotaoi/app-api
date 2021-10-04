@@ -1,5 +1,5 @@
 import { AppKernel } from '@sotaoi/api/app-kernel';
-import { config } from '@sotaoi/api/config';
+import { config } from '@app/omni/config';
 import { Output } from '@sotaoi/api/output';
 import {
   StringInput,
@@ -25,7 +25,7 @@ class ApiInit {
   // app kernel
   public static kernel(): AppKernel {
     if (!ApiInit._kernel) {
-      ApiInit._kernel = new AppKernel(config);
+      ApiInit._kernel = new AppKernel().bootstrap(config);
     }
     return ApiInit._kernel;
   }
