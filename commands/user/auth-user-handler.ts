@@ -3,7 +3,7 @@ import { AuthCommand } from '@sotaoi/api/commands';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { Helper } from '@sotaoi/api/helper';
 import { UserModel } from '@app/api/models/user-model';
-import { storeAuthorization } from '@app/api/auth/oauth-authorize';
+import { storeAuthorization } from '@sotaoi/api/auth/oauth-authorize';
 import { ErrorCode } from '@sotaoi/omni/errors';
 
 class AuthUserHandler extends AuthHandler {
@@ -31,6 +31,7 @@ class AuthUserHandler extends AuthHandler {
 
     if (
       !(await storeAuthorization(
+        'user',
         this.handler,
         authRecord,
         this.mdriverDomainRepoSignature('user'),

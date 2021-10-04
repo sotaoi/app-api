@@ -16,7 +16,7 @@ import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { ResponseToolkit } from '@hapi/hapi';
 import { GenericModel } from '@sotaoi/api/db/generic-model';
 import { Store } from '@sotaoi/api/store';
-import { obtainUserToken, verifyToken } from '@app/api/auth/oauth-authorize';
+import { obtainUserToken, verifyToken } from '@sotaoi/api/auth/oauth-authorize';
 
 class ApiInit {
   // { -->
@@ -73,7 +73,12 @@ class ApiInit {
       return [null, null];
     }
 
-    const oauthAccessToken = await obtainUserToken(Store.mdriverDomainRepoSignature('user'), authRecord.uuid, '@#');
+    const oauthAccessToken = await obtainUserToken(
+      'user',
+      Store.mdriverDomainRepoSignature('user'),
+      authRecord.uuid,
+      '@#',
+    );
 
     if (!oauthAccessToken) {
       return [null, null];

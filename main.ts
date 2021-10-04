@@ -14,7 +14,7 @@ import { Server as HttpsServer } from 'https';
 import { Server as HttpServer } from 'http';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { getAppInfo } from '@sotaoi/omni/get-app-info';
-import { oauthAuthorize, scopedRequests, verifyToken } from '@app/api/auth/oauth-authorize';
+import { scopedRequests } from '@sotaoi/api/auth/oauth-authorize';
 
 let serverInitInterval: any = null;
 let serverInitTries = 0;
@@ -82,8 +82,10 @@ const main = async (noServer: boolean): Promise<void> => {
   const appInfo = getAppInfo(require('dotenv'));
   await Store.init(appInfo, handlers, { user }, scopedRequests());
 
+  console.log(appInfo.environment);
+
   // start
-  const server = await Server.init(noServer, oauthAuthorize, verifyToken);
+  const server = await Server.init(noServer);
   server && servers.push(server);
 };
 

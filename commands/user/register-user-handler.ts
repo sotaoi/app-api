@@ -5,7 +5,7 @@ import { Helper } from '@sotaoi/api/helper';
 import { storage } from '@sotaoi/api/storage';
 import { UserModel } from '@app/api/models/user-model';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
-import { storeAuthorization } from '@app/api/auth/oauth-authorize';
+import { storeAuthorization } from '@sotaoi/api/auth/oauth-authorize';
 import { ErrorCode } from '@sotaoi/omni/errors';
 
 class RegisterUserHandler extends StoreHandler {
@@ -39,6 +39,7 @@ class RegisterUserHandler extends StoreHandler {
 
     if (
       !(await storeAuthorization(
+        'user',
         this.handler,
         authRecord,
         this.mdriverDomainRepoSignature('user'),
