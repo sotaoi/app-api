@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "declaration": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
     "allowJs": true,
@@ -21,5 +22,5 @@
       "@sotaoi/omni/*": ["../packages/sotaoi-omni/*"]
     }
   },
-  "exclude": ["./node_modules"]
+  "exclude": ["./build", "./node_modules"]
 }

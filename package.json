@@ -12,6 +12,7 @@
     "start:api:prod": "NODE_ENV=production forever start -v -c ts-node ./api.entry.ts",
     "restart:api:prod": "forever restart ./api.entry.ts",
     "stop:api:prod": "forever stop ./api.entry.ts",
+    "build:api": "ts-node ./scripts/build-api",
     "db:migrate": "ts-node ./scripts/db-migrate",
     "db:rollback": "ts-node ./scripts/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db-migrate-down",

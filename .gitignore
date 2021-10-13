@@ -1,5 +1,8 @@
 !.gitkeep
 
+/build/*
+!/build/.gitkeep
+
 # certs
 /certs/*
 !/certs/.gitkeep
