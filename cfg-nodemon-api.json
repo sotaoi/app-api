@@ -1,6 +1,6 @@
 {
-  "watch": ["./", "../app-omni", "../packages/sotaoi-api", "../packages/sotaoi-omni"],
+  "watch": ["./", "./node_modules/@app/omni", "./node_modules/@sotaoi/api", "./node_modules/@sotaoi/omni"],
   "ext": "*",
-  "ignore": ["./logs", "./storage", "../packages/sotaoi-omni/bundle.json"],
+  "ignore": ["./logs", "./storage", "./node_modules/@sotaoi/omni/bundle.json"],
   "exec": "ts-node --project ./tsconfig.json ./api.entry.ts"
 }
