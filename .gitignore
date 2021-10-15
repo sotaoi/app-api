@@ -1,7 +1,9 @@
 !.gitkeep
 
-/build/*
-!/build/.gitkeep
+/deployment/deployment-pivot-1/*
+!/deployment/deployment-pivot-1/.gitkeep
+/deployment/deployment-pivot-2/*
+!/deployment/deployment-pivot-2/.gitkeep
 
 # certs
 /certs/*
