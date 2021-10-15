@@ -42,7 +42,6 @@ const main = async (noServer: boolean): Promise<void> => {
   clearTimeout(serverInitInterval);
 
   const appInfo = getAppInfo();
-  console.log(appInfo);
 
   const keyPath = path.resolve(appInfo.sslKey);
   const certPath = path.resolve(appInfo.sslCert);
