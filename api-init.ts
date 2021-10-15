@@ -1,16 +1,14 @@
 import { AppKernel } from '@sotaoi/api/app-kernel';
 import { config } from '@app/omni/config';
 import { Output } from '@sotaoi/api/output';
-import {
-  StringInput,
-  NumberInput,
-  RefSelectInput,
-  FileInput,
-  MultiFileInput,
-  StringSelectInput,
-  OptionsSelectInput,
-  BooleanInput,
-} from '@sotaoi/omni/input';
+import { StringInput } from '@sotaoi/omni/input/string-input';
+import { NumberInput } from '@sotaoi/omni/input/number-input';
+import { RefSelectInput } from '@sotaoi/omni/input/ref-select-input';
+import { FileInput } from '@sotaoi/omni/input/file-input';
+import { MultiFileInput } from '@sotaoi/omni/input/multi-file-input';
+import { StringSelectInput } from '@sotaoi/omni/input/string-select-input';
+import { OptionsSelectInput } from '@sotaoi/omni/input/options-select-input';
+import { BooleanInput } from '@sotaoi/omni/input/boolean-input';
 import { AuthRecord } from '@sotaoi/omni/artifacts';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { ResponseToolkit } from '@hapi/hapi';
