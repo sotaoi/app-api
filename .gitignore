@@ -1,8 +1,5 @@
 !.gitkeep
 
-/deployment/*
-!/deployment/.gitkeep
-
 # certs
 /certs/*
 !/certs/.gitkeep
@@ -26,3 +23,7 @@
 # ide
 /.idea
 /.vscode
+
+/deployment/*
+!/deployment/.gitkeep
+/tmp.deployment
