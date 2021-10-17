@@ -29,21 +29,7 @@ process.on('SIGQUIT', () => {
   shutDown(servers, null);
 });
 
-const altnames =
-  process.env.NODE_ENV === 'production'
-    ? [
-        appInfo.prodDomain,
-        ...[appInfo.prodDomainAlias].filter((domain: string) => domain !== appInfo.prodDomain && domain),
-      ]
-    : process.env.NODE_ENV === 'staging'
-    ? [
-        appInfo.stageDomain,
-        ...[appInfo.stageDomainAlias].filter((domain: string) => domain !== appInfo.stageDomain && domain),
-      ]
-    : [
-        appInfo.devDomain,
-        ...[appInfo.devDomainAlias].filter((domain: string) => domain !== appInfo.devDomain && !!domain),
-      ];
+const altnames = appInfo.domainAlias ? [appInfo.domain, appInfo.domainAlias] : [appInfo.domain];
 
 const keyPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/privkey.pem`);
 const certPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/cert.pem`);
