@@ -37,11 +37,11 @@ const bundlePath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/bundle.pe
 const chainPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/chain.pem`);
 const fullchainPath = path.resolve(`./var/greenlock.d/live/${altnames[0]}/fullchain.pem`);
 
-const newKeyPath = path.resolve(appInfo.sslKey);
-const newCertPath = path.resolve(appInfo.sslCert);
-const newBundlePath = path.resolve(appInfo.sslCa);
-const newChainPath = path.resolve(appInfo.sslChain);
-const newFullchainPath = path.resolve(appInfo.sslFullchain);
+const newKeyPath = require.resolve(appInfo.sslKey);
+const newCertPath = require.resolve(appInfo.sslCert);
+const newBundlePath = require.resolve(appInfo.sslCa);
+const newChainPath = require.resolve(appInfo.sslChain);
+const newFullchainPath = require.resolve(appInfo.sslFullchain);
 
 const checkCertificatesInterval = (): void => {
   let intervalCount = 0;
