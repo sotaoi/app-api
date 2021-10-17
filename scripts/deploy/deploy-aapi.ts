@@ -65,6 +65,8 @@ const main = async () => {
     },
   );
   fs.rmdirSync(path.resolve('./deployment/.git'), { recursive: true });
+
+  // execSync('npm install -D ./', { cwd: path.resolve('./deployment'), stdio: 'inherit' });
 };
 
 main();
