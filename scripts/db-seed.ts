@@ -1,3 +1,5 @@
+#!/bin/env node
+
 import { main as apiMain } from '@app/api/main';
 import { seed } from '@sotaoi/api/db';
 import { logger } from '@sotaoi/api/logger';
