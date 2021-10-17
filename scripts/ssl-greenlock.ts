@@ -45,7 +45,7 @@ const newFullchainPath = path.resolve(appInfo.sslFullchain);
 
 const checkCertificatesInterval = (): void => {
   let intervalCount = 0;
-  _checkCertificatesInterval = setInterval(() => {
+  const checkCertificatesFn = () => {
     if (
       fs.existsSync(keyPath) &&
       fs.existsSync(certPath) &&
@@ -69,7 +69,9 @@ const checkCertificatesInterval = (): void => {
       _checkCertificatesInterval && clearInterval(_checkCertificatesInterval);
       process.exit(0);
     }
-  }, 1000);
+  };
+  _checkCertificatesInterval = setInterval(checkCertificatesFn, 1000);
+  checkCertificatesFn();
 };
 
 const main = async (): Promise<void> => {
