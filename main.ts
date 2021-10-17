@@ -1,5 +1,6 @@
+import type { Server as HttpsServer } from 'https';
+import type { Server as HttpServer } from 'http';
 import fs from 'fs';
-import path from 'path';
 import { Store } from '@sotaoi/api/store';
 import { Server } from '@sotaoi/api/server';
 import { handlers } from '@app/api/handlers';
@@ -8,44 +9,23 @@ import { ApiInit } from '@app/api/api-init';
 import { UserModel } from '@app/api/models/user-model';
 import { connect, mconnect, sconnect } from '@sotaoi/api/db';
 import { logger } from '@sotaoi/api/logger';
-import { Helper } from '@sotaoi/api/helper';
-import { Server as HttpsServer } from 'https';
-import { Server as HttpServer } from 'http';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { getAppInfo } from '@sotaoi/omni/get-app-info';
 import { scopedRequests } from '@sotaoi/api/auth/oauth-authorize';
 import { config } from '@app/omni/config';
 
+let server: null | HttpsServer | HttpServer = null;
 let serverInitInterval: any = null;
 let serverInitTries = 0;
-
-let servers: (HttpsServer | HttpServer)[] = [];
-
-let exitHandled = false;
-process.stdin.resume();
-const exitHandler = () => {
-  if (exitHandled) {
-    return;
-  }
-  exitHandled = true;
-  Helper.shutDown(servers, logger);
-};
-process.on('exit', exitHandler.bind(null, { code: 0 }));
-process.on('SIGINT', exitHandler.bind(null, { code: 0 }));
-process.on('SIGTERM', exitHandler.bind(null, { code: 0 }));
-process.on('SIGQUIT', exitHandler.bind(null, { code: 0 }));
-process.on('SIGUSR1', exitHandler.bind(null, { code: 0 }));
-// process.on('SIGUSR2', exitHandler.bind(null, { code: 0 })); // <-- this is nodemon
-// process.on('uncaughtException', exitHandler.bind(null, { code: 1 })); // <-- you don't want shutdown on uncaughtException
 
 const main = async (noServer: boolean): Promise<void> => {
   clearTimeout(serverInitInterval);
 
   const appInfo = getAppInfo();
 
-  const keyPath = path.resolve(appInfo.sslKey);
-  const certPath = path.resolve(appInfo.sslCert);
-  const chainPath = path.resolve(appInfo.sslCa);
+  const keyPath = require.resolve(appInfo.sslKey);
+  const certPath = require.resolve(appInfo.sslCert);
+  const chainPath = require.resolve(appInfo.sslCa);
   if (!noServer && (!fs.existsSync(keyPath) || !fs.existsSync(certPath) || !fs.existsSync(chainPath))) {
     if (serverInitTries === 60) {
       console.error('server failed to start because at least one ssl certificate file is missing');
@@ -84,8 +64,7 @@ const main = async (noServer: boolean): Promise<void> => {
   await Store.init(appInfo, handlers, { user }, scopedRequests());
 
   // start
-  const server = await Server.init(noServer);
-  server && servers.push(server);
+  server = await Server.init(noServer, { key: keyPath, ca: chainPath, cert: certPath, rejectUnauthorized: false });
 };
 
 export { main };

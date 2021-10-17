@@ -29,11 +29,7 @@ const main = async () => {
 
   execSync('npx tsc', { cwd: path.resolve('./deployment'), stdio: 'inherit' });
   fs.unlinkSync(path.resolve('./deployment/tsconfig.json'));
-  // delete packageJson.devDependencies;
-  // fs.writeFileSync(path.resolve('./deployment/package.json'), JSON.stringify(packageJson, null, 2));
   execSync('npm run bootstrap:prod', { cwd: path.resolve('./deployment'), stdio: 'inherit' });
-  // packageJson.devDependencies = { [packageJson.name]: 'file:./', '@app/omni': 'file:../../app-omni' };
-  // fs.writeFileSync(path.resolve('./deployment/package.json'), JSON.stringify(packageJson, null, 2));
 
   Helper.iterateRecursiveSync(
     fs,
@@ -70,9 +66,20 @@ const main = async () => {
   );
   fs.rmdirSync(path.resolve('./deployment/.git'), { recursive: true });
 
-  // fs.mkdirSync(path.dirname(path.resolve('./deployment/node_modules', packageJson.name)), { recursive: true });
-  // fs.symlinkSync('../../', path.resolve('./deployment/node_modules', packageJson.name));
-  // fs.symlinkSync('../../../../app-omni', path.resolve('./deployment/node_modules', '@app/omni'));
+  Object.values(packageJson.dependencies).map((dependency) => {
+    if (
+      typeof dependency !== 'string' ||
+      (dependency.substr(0, 7) !== 'file:./' &&
+        dependency.substr(0, 8) !== 'file:../' &&
+        dependency.substr(0, 12) !== 'git+https://')
+    ) {
+      return;
+    }
+    execSync(`npm install --force ${dependency}`, {
+      cwd: path.resolve('./deployment'),
+      stdio: 'inherit',
+    });
+  });
 };
 
 main();
