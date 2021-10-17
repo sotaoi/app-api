@@ -8,15 +8,19 @@
   },
   "scripts": {
     "bootstrap": "npm install --no-audit --no-fund",
+    "bootstrap:prod": "npm install --production --no-audit --no-fund",
     "start:api": "NODE_ENV=development nodemon --config ./cfg-nodemon-api.json",
     "start:api:prod": "NODE_ENV=production forever start -v -c ts-node ./api.entry.ts",
     "restart:api:prod": "forever restart ./api.entry.ts",
     "stop:api:prod": "forever stop ./api.entry.ts",
-    "build:api": "ts-node ./scripts/build-api",
-    "db:migrate": "ts-node ./scripts/db-migrate",
-    "db:rollback": "ts-node ./scripts/db-rollback",
-    "db:migrate:down": "ts-node ./scripts/db-migrate-down",
-    "db:seed": "ts-node ./scripts/db-seed"
+    "deploy:aapi": "ts-node ./scripts/deploy/deploy-aapi",
+    "deploy:reload-aapi": "ts-node ./scripts/deploy/deploy-reload-aapi",
+    "clean:aapi": "ts-node ./scripts/clean/clean-aapi",
+    "db:migrate": "ts-node ./scripts/db/db-migrate",
+    "db:rollback": "ts-node ./scripts/db/db-rollback",
+    "db:migrate:down": "ts-node ./scripts/db/db-migrate-down",
+    "db:seed": "ts-node ./scripts/db/db-seed",
+    "ssl:greenlock": "ts-node ./scripts/ssl/ssl-greenlock"
   },
   "devDependencies": {
     "@app/api": "file:./",
@@ -27,7 +31,7 @@
     "@types/node": "^14"
   },
   "dependencies": {
-    "@app/omni": "git+https://github.com/sotaoi/app-omni#0.9.1",
+    "@app/omni": "file:../app-omni",
     "@hapi/hapi": "19.1.1",
     "@sotaoi/api": "git+https://github.com/sotaoi/api#0.9.1",
     "@sotaoi/omni": "git+https://github.com/sotaoi/omni#0.9.1",
