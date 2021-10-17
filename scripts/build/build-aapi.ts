@@ -5,7 +5,7 @@ import { buildAapiRoutine } from '@app/api/scripts/routines/build-aapi-routine';
 const main = async () => {
   //
 
-  await buildAapiRoutine(true);
+  await buildAapiRoutine(false);
 
   //
 };
