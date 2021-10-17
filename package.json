@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "@app/api": "file:./",
-    "@hapi/hapi": "19.1.1",
     "@app/omni": "file:../../app-omni",
+    "@hapi/hapi": "19.1.1",
     "@sotaoi/api": "git+https://github.com/sotaoi/api#0.9.1",
     "@sotaoi/omni": "git+https://github.com/sotaoi/omni#0.9.1",
     "forever": "^4.0.1",
