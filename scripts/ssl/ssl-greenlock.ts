@@ -75,11 +75,11 @@ const checkCertificatesInterval = (): void => {
 };
 
 const main = async (): Promise<void> => {
-  // clean and backup ../app-omni/certs/*.pem
-  // const sslDirectory = path.resolve(process.env.SSL_DIRECTORY || '../app-omni/certs');
-  // const sslBackupDirectory = path.resolve(process.env.SSL_DIRECTORY || '../app-omni/certs', 'backup');
-  const sslDirectory = path.resolve('../app-omni/certs');
-  const sslBackupDirectory = path.resolve('../app-omni/certs', 'backup');
+  // clean and backup ../pocket/certs/*.pem
+  // const sslDirectory = path.resolve(process.env.SSL_DIRECTORY || '../pocket/certs');
+  // const sslBackupDirectory = path.resolve(process.env.SSL_DIRECTORY || '../pocket/certs', 'backup');
+  const sslDirectory = path.resolve('../pocket/certs');
+  const sslBackupDirectory = path.resolve('../pocket/certs', 'backup');
   !fs.existsSync(path.resolve(sslBackupDirectory)) && fs.mkdirSync(path.resolve(sslBackupDirectory));
   fs.existsSync(path.resolve(sslDirectory, 'bundle.pem')) &&
     fs.renameSync(path.resolve(sslDirectory, 'bundle.pem'), path.resolve(sslBackupDirectory, 'bundle.pem'));

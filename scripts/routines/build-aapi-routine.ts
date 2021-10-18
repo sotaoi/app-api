@@ -75,11 +75,11 @@ const buildAapiRoutine = async (deploy: boolean) => {
     );
   deploy && fs.rmdirSync(path.resolve('./deployment/.git'), { recursive: true });
 
-  fs.copyFileSync(path.resolve('../app-omni/env.json'), path.resolve('./deployment/node_modules/@app/omni/env.json'));
+  fs.copyFileSync(path.resolve('../pocket/env.json'), path.resolve('./deployment/node_modules/@app/omni/env.json'));
   Helper.copyRecursiveSync(
     fs,
     path,
-    path.resolve('../app-omni/certs'),
+    path.resolve('../pocket/certs'),
     path.resolve('./deployment/node_modules/@app/omni/certs'),
   );
 
