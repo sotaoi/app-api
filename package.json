@@ -23,7 +23,6 @@
     "db:rollback": "ts-node ./scripts/db/db-rollback",
     "db:migrate:down": "ts-node ./scripts/db/db-migrate-down",
     "db:seed": "ts-node ./scripts/db/db-seed",
-    "ssl:greenlock": "ts-node ./scripts/ssl/ssl-greenlock",
     "postinstall": "ts-node ./scripts/hook/hook-postinstall"
   },
   "devDependencies": {
