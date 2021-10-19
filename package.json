@@ -17,6 +17,7 @@
     "build:aapi": "ts-node ./scripts/build/build-aapi",
     "deploy:aapi": "ts-node ./scripts/deploy/deploy-aapi",
     "deploy:reload-aapi": "ts-node ./scripts/deploy/deploy-reload-aapi",
+    "clean:bootstrap": "ts-node ./scripts/clean/clean-bootstrap",
     "clean:aapi": "ts-node ./scripts/clean/clean-aapi",
     "db:migrate": "ts-node ./scripts/db/db-migrate",
     "db:rollback": "ts-node ./scripts/db/db-rollback",
