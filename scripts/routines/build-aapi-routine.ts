@@ -66,13 +66,20 @@ const buildAapiRoutine = async (deploy: boolean) => {
   deploy && fs.renameSync(path.resolve('./tmp.deployment/.git'), path.resolve('./deployment/.git'));
   deploy && fs.rmdirSync(path.resolve('./tmp.deployment'), { recursive: true });
   deploy &&
-    execSync(
-      `git add --all && git commit -m "release ${packageJson.version}" && git push -f -u origin ${packageJson.version}`,
-      {
-        cwd: path.resolve('./deployment'),
-        stdio: 'inherit',
-      },
-    );
+    (() => {
+      try {
+        execSync(
+          `git add --all && git commit -m "release ${packageJson.version}" && git push -f -u origin ${packageJson.version}`,
+          {
+            cwd: path.resolve('./deployment'),
+            stdio: 'inherit',
+          },
+        );
+      } catch (err) {
+        // do nothing
+        false && console.error(err);
+      }
+    })();
   deploy && fs.rmdirSync(path.resolve('./deployment/.git'), { recursive: true });
 
   fs.copyFileSync(path.resolve('../pocket/env.json'), path.resolve('./deployment/node_modules/@app/omni/env.json'));
