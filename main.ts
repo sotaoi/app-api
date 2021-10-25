@@ -12,7 +12,7 @@ import { logger } from '@sotaoi/api/logger';
 import { AuthHandler } from '@sotaoi/api/commands/auth-handler';
 import { getAppInfo } from '@sotaoi/omni/get-app-info';
 import { scopedRequests } from '@sotaoi/api/auth/oauth-authorize';
-import { config } from '@app/omni/config';
+import { config, env } from '@app/omni/config';
 
 let server: null | HttpsServer | HttpServer = null;
 let serverInitInterval: any = null;
