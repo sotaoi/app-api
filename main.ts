@@ -2,6 +2,7 @@ import type { Server as HttpsServer } from 'https';
 import type { Server as HttpServer } from 'http';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { init } from '@app/omni/init';
+init();
 process.env.SIGNATURE_1 = process.env.DB_NAME;
 process.env.SIGNATURE_2 = process.env.DB_CONTROL_PANEL_NAME;
 init();

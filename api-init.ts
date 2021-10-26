@@ -51,6 +51,7 @@ class ApiInit {
     accessToken: null | string,
   ): Promise<[null | AuthRecord, null | string]> {
     const accessTokenInState = AuthHandler.getAccessToken(handler);
+
     if (!accessToken || typeof accessToken !== 'string' || accessTokenInState !== accessToken) {
       return [null, null];
     }
@@ -63,13 +64,16 @@ class ApiInit {
       return [null, null];
     }
     const authRecord = AuthRecord.deserialize(accessTokenRecord.authRecordSerial);
+    console.log('>>', authRecord.domainSignature, Store.mdriverDomainSignature());
     if (authRecord.domainSignature !== Store.mdriverDomainSignature()) {
       return [null, null];
     }
+    console.log('<<');
     const record = await new GenericModel(authRecord.repository).mdb().where('uuid', authRecord.uuid).first();
     if (!record) {
       return [null, null];
     }
+    console.log('<<');
 
     const oauthAccessToken = await obtainUserToken(
       'user',
@@ -77,13 +81,16 @@ class ApiInit {
       authRecord.uuid,
       '@#',
     );
+    console.log('<<');
 
     if (!oauthAccessToken) {
       return [null, null];
     }
+    console.log('<<');
     if (!(await verifyToken(oauthAccessToken, '@#'))) {
       return [null, null];
     }
+    console.log('<<');
 
     return [
       new AuthRecord(authRecord.domainSignature, authRecord.repository, record.uuid, record.createdAt, true, {}),
