@@ -1,5 +1,10 @@
 import type { Server as HttpsServer } from 'https';
 import type { Server as HttpServer } from 'http';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { init } from '@app/omni/init';
+process.env.SIGNATURE_1 = process.env.DB_NAME;
+process.env.SIGNATURE_2 = process.env.DB_CONTROL_PANEL_NAME;
+init();
 import fs from 'fs';
 import { Store } from '@sotaoi/api/store';
 import { Server } from '@sotaoi/api/server';
@@ -26,6 +31,7 @@ const main = async (noServer: boolean): Promise<void> => {
   const keyPath = require.resolve(appInfo.sslKey);
   const certPath = require.resolve(appInfo.sslCert);
   const chainPath = require.resolve(appInfo.sslCa);
+
   if (!noServer && (!fs.existsSync(keyPath) || !fs.existsSync(certPath) || !fs.existsSync(chainPath))) {
     if (serverInitTries === 60) {
       console.error('server failed to start because at least one ssl certificate file is missing');
@@ -64,7 +70,8 @@ const main = async (noServer: boolean): Promise<void> => {
   await Store.init(appInfo, handlers, { user }, scopedRequests());
 
   // start
-  server = await Server.init(noServer, { key: keyPath, ca: chainPath, cert: certPath, rejectUnauthorized: false });
+  !noServer &&
+    (server = await Server.init(noServer, { key: keyPath, ca: chainPath, cert: certPath, rejectUnauthorized: false }));
 };
 
 export { main };
