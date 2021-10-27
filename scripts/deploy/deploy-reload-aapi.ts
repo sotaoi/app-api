@@ -9,12 +9,12 @@ const main = async () => {
   } catch (err) {
     // do nothing
   }
+  execSync('git checkout -b tmp/deploy', { stdio: 'inherit' });
   try {
     execSync(`git branch -D ${deployment}`);
   } catch (err) {
     // do nothing
   }
-  execSync('git checkout -b tmp/deploy', { stdio: 'inherit' });
   execSync('git fetch', { stdio: 'inherit' });
   execSync('git checkout -- ./', { stdio: 'inherit' });
   execSync(`git checkout ${deployment}`, { stdio: 'inherit' });
