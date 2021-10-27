@@ -1,6 +1,6 @@
 {
   "watch": [],
   "ext": "*",
-  "ignore": [],
+  "ignore": ["./*"],
   "exec": "node ./api.entry.js"
 }
